@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
 
-            $table->foreignId('tecnology_id')
+            $table->foreignId('technology_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
