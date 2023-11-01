@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 use App\Http\Controllers\Controller;
+use App\Models\Technology;
 use App\Models\Type;
 
 class ProjectController extends Controller
@@ -30,7 +31,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $techs = Technology::orderBy('label')->get();
+        return view('admin.projects.create', compact('types', 'techs'));
     }
 
     /**
