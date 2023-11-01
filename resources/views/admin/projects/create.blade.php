@@ -27,6 +27,26 @@
                 </div>
             @enderror
 
+            {{-- techs selections --}}
+            <label class="form-label">Tecnologie</label>
+
+            <div class="form-check @error('techs') is-invalid @enderror p-0">
+                @foreach ($techs as $tech)
+                    <input type="checkbox" id="tech-{{ $tech->id }}" value="{{ $tech->id }}" name="techs[]"
+                        class="form-check-control" @if (in_array($tech->id, old('techs', $project_technology ?? []))) checked @endif>
+                    <label for="tech-{{ $tech->id }}">
+                        {{ $tech->label }}
+                    </label>
+                    <br>
+                @endforeach
+            </div>
+
+            @error('tech')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+
             {{-- description --}}
             <label for="number" class="form-label">Descrizione</label>
             <textarea class="form-control" id="description" name="description"></textarea>
