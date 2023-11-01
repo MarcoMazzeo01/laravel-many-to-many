@@ -17,6 +17,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Titolo</th>
                     <th scope="col">Tipo</th>
+                    <th scope="col">Tecnologie</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Creato</th>
                     <th scope="col">Aggiornato</th>
@@ -30,6 +31,17 @@
                         <th scope="row">{{ $project->id }}</th>
                         <td><a href='{{ route('admin.projects.show', $project) }}'>{{ $project->title }}</a></td>
                         <td>{{ $project->type?->label }}</td>
+
+                        <td>
+                            @foreach ($project->technologies as $tech)
+                                {{ $tech->label }} @unless ($loop->last)
+                                    ,
+                                @else
+                                    .
+                                @endunless
+                            @endforeach
+                        </td>
+
                         <td>{{ $project->slug }}</td>
                         <td>{{ $project->created_at }}</td>
                         <td>{{ $project->updated_at }}</td>
