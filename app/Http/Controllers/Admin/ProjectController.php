@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use App\Models\Type;
+use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {
@@ -48,6 +49,9 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($data['title']);
         $project->save();
+
+        if (Arr::exists($data, "techs")) $project->technologies()->attach($data["techs"]);
+
         return redirect()->route('admin.projects.show', $project);
     }
 
