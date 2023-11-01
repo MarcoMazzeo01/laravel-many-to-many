@@ -92,6 +92,12 @@ class ProjectController extends Controller
         $data = $request->all();
         $project->slug = Str::slug($data['title']);
         $project->update($data);
+
+        if (Arr::exists($data, "techs"))
+            $project->technologies()->sync($data["techs"]);
+        else
+            $project->technologies()->detach();
+
         return redirect()->route('admin.projects.show', $project);
     }
 
