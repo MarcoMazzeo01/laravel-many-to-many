@@ -14,15 +14,31 @@
 
         <div class="row g-5 mt-1">
             {{-- type --}}
-            <div class="col-3">
+            <div class="col-2">
                 <p>
                     <strong>Tipo</strong><br>
                     {{ $project->type?->label }}
                 </p>
             </div>
 
+            {{-- techs --}}
+            <div class="col-2">
+                <p>
+                    <strong>Tecnologie</strong><br>
+                    @forelse ($project->technologies as $tech)
+                        {{ $tech->label }} @unless ($loop->last)
+                            ,
+                        @else
+                            .
+                        @endunless
+                    @empty
+                        Nessun tag associato
+                    @endforelse
+                </p>
+            </div>
+
             {{-- slug --}}
-            <div class="col-3">
+            <div class="col-2">
                 <p>
                     <strong>Slug</strong><br>
                     {{ $project->slug }}
@@ -30,7 +46,7 @@
             </div>
 
             {{-- created_at --}}
-            <div class="col-3">
+            <div class="col-2">
                 <p>
                     <strong>Pubblicato</strong><br>
                     {{ $project->created_at }}
@@ -38,7 +54,7 @@
             </div>
 
             {{-- updated_at --}}
-            <div class="col-3">
+            <div class="col-2">
                 <p>
                     <strong>Aggiornato</strong><br>
                     {{ $project->updated_at }}
