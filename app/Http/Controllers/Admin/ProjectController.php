@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Project;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
+
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -48,6 +52,12 @@ class ProjectController extends Controller
         $project = new Project();
         $project->fill($data);
         $project->slug = Str::slug($data['title']);
+
+        if (Arr::exists($data, 'image')) {
+            $img_path = Storage::put("uploads/projects", $data['image']); //genera path file
+            $project->image = $img_path;
+        }
+
         $project->save();
 
         if (Arr::exists($data, "techs")) $project->technologies()->attach($data["techs"]);
