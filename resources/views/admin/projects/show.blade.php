@@ -61,6 +61,13 @@
                 </p>
             </div>
 
+            {{-- img --}}
+            @if ($project->image)
+                <div class="col">
+                    <img src="{{ asset('/storage/' . $project->image) }}" alt="">
+                </div>
+            @endif
+
             {{-- description --}}
             <div class="col-12">
                 <p>
