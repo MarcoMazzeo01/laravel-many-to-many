@@ -4,7 +4,7 @@
     <div class="container pb-2">
         <h1>Crea Nuovo Progetto</h1>
 
-        <form action="{{ route('admin.projects.store') }}" method="POST">
+        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- project name --}}
@@ -29,7 +29,6 @@
 
             {{-- techs selections --}}
             <label class="form-label">Tecnologie</label>
-
             <div class="form-check @error('techs') is-invalid @enderror p-0">
                 @foreach ($techs as $tech)
                     <input type="checkbox" id="tech-{{ $tech->id }}" value="{{ $tech->id }}" name="techs[]"
@@ -46,6 +45,15 @@
                     {{ $message }}
                 </div>
             @enderror
+
+            {{-- file upload --}}
+            <label for="image">Immagine Progetto</label>
+            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror"
+                value="{{ old('image') }}">
+            @error('image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+
 
             {{-- description --}}
             <label for="number" class="form-label">Descrizione</label>
