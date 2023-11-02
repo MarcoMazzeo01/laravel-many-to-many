@@ -123,4 +123,17 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index');
     }
+
+    public function forceDestroy(int $id)
+    {
+        $project = Project::onlyTrashed()->findOrFail($id);
+        $project->technologies()->detach();
+
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
+
+        $project->forceDelete();
+        return redirect()->route('admin.projects.index');
+    }
 }
